@@ -1,4 +1,6 @@
 langchain
 pydantic
 streamlit
+langchain_aws
+langgraph
 cryptography
