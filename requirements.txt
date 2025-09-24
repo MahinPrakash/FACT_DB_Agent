@@ -4,3 +4,4 @@ streamlit
 langchain_aws
 langgraph
 cryptography
+openpyxl
