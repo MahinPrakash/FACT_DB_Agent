@@ -83,7 +83,8 @@ llm=ChatBedrockConverse(model="us.anthropic.claude-sonnet-4-20250514-v1:0",
                         max_tokens=10000,
                         disable_streaming=False,
                         aws_access_key_id=cipher.decrypt(access_key1).decode(),
-                        aws_secret_access_key=cipher.decrypt(access_key2).decode())
+                        aws_secret_access_key=cipher.decrypt(access_key2).decode(),
+                        region_name="us-east-1)
 
 llm_agent=llm.bind_tools([python_repl_tool])
 
@@ -262,6 +263,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
