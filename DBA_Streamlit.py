@@ -216,7 +216,7 @@ if user_prompt:
                                     print(e)
 
                 if raw_chunk_metadata.get("langgraph_node")=="Response Generator":
-                    if raw_chunk.content!=[]:
+                    if len(raw_chunk.content)>0:
                         if "text" in raw_chunk.content[0]:        
                             data={"type":"final_response","chunk":raw_chunk.content[0].get("text")}
 
@@ -263,6 +263,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
