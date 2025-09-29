@@ -19,7 +19,7 @@ xponent_df=pd.read_excel("Xponent_Data_v2.xlsx")
 weekly_sales_crediting_df=pd.read_excel("weekly_sales_crediting_file_v2.xlsx")
 territory_mapping_df=pd.read_excel("Territory_Mapping.xlsx")
 zip_to_territory_mapping_df=pd.read_excel("Zip_To_Terr.xlsx")
-roster_df=pd.read_excel("Roster_Data.xlsx")
+roster_df=pd.read_excel("Roster_Data_v2.xlsx")
 ic_goals_df=pd.read_excel("IC_goals_data.xlsx")
 segmentation_df=pd.read_excel("Segmentation Data.xlsx")
 rdtr_df=pd.read_excel("RDTR.xlsx")
@@ -263,6 +263,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
