@@ -79,7 +79,7 @@ def python_repl_tool(llm_gen_code):
     
     return tool_result
 
-llm=ChatBedrockConverse(model="us.anthropic.claude-sonnet-4-20250514-v1:0",
+llm=ChatBedrockConverse(model="us.anthropic.claude-sonnet-4-5-20250929-v1:0",
                         temperature=0,
                         max_tokens=10000,
                         disable_streaming=False,
@@ -96,7 +96,7 @@ class db_graph_state(MessagesState):
     pass
 
 def llm_node(state):
-    multi_df_system_prompt=MULTIPLE_DATASETS_SYSTEM_PROMPT.format(db_metadata=db_metadata)
+    multi_df_system_prompt=MULTIPLE_DATASETS_SYSTEM_PROMPT.format(db_metadata=db_metadata,current_datetime=current_datetime)
 
     return {"messages":llm_agent.invoke([SystemMessage(content=multi_df_system_prompt)]+state.get("messages"))}
 
@@ -266,6 +266,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
