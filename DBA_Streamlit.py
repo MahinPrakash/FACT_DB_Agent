@@ -7,6 +7,7 @@ import pandas as pd
 import json
 import streamlit as st
 from cryptography.fernet import Fernet
+from datetime import datetime
 
 key="5KmTdJ2hsmenGZVlb-gAAqg8GWstwbkKAo7uRNKAMRE="
 access_key1=b'gAAAAABot9zz3KX7jY0lj_aWcW0nrVuyOMt9q2gMXh0VaaNBcBvMZ3ln490Z-LtJ3Rav69Jnps09KtYDVJ0Ca-XGaqBqMQxGlkzj5yPk4XNh-Yu2xbOSFRU='
@@ -87,6 +88,8 @@ llm=ChatBedrockConverse(model="us.anthropic.claude-sonnet-4-20250514-v1:0",
                         region_name="us-east-1")
 
 llm_agent=llm.bind_tools([python_repl_tool])
+
+current_datetime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 class db_graph_state(MessagesState):
     #messages:Annotated[AnyMessage,add_messsage]
@@ -263,6 +266,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
