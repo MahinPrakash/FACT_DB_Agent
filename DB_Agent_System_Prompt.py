@@ -269,7 +269,8 @@ db_metadata = [
         "dataset_name": "Roster Data",
         "description": "Dataset containing employee roster details including roles, territories, reporting managers, and employment dates.",
         "columns": {
-            "EMP_ROLE": {"description": "Role of the employee in the organization", "type": "string", "variable_type": "Dimension"},
+            "EMP_ROLE": {"description": "Role of the employee in the organization hierarchy", "type": "string", "variable_type": "Dimension", "levels":        {"Territory": "ABM", "Region": "RBM", "Nation": "SBD"}},
+
             "Territory_ID": {"description": "Unique identifier for the sales territory assigned to the employee", "type": "string", "variable_type": "Dimension"},
             "MANAGER_NAME": {"description": "Name of the reporting manager for the employee", "type": "string", "variable_type": "Dimension"},
             "MANAGER_AREA_ID": {"description": "Unique identifier for the manager's area", "type": "string", "variable_type": "Dimension"},
@@ -281,7 +282,6 @@ db_metadata = [
     },
     {
         "dataset_name": "Zip to Terr Data",
-        "variable_the_df_is_stored_in": "zip_to_territory_mapping_df",
         "description": "Dataset mapping ZIP codes to sales territories along with alignment start and end dates.",
         "columns": {
             "ZIP_CODE": {"description": "Postal ZIP code mapped to a specific sales territory", "type": "string", "variable_type": "Dimension"},
@@ -292,6 +292,7 @@ db_metadata = [
     },
     {
         "dataset_name": "Territory Mapping Data",
+        "variable_the_df_is_stored_in": "territory_mapping_df",
         "description": "Dataset mapping healthcare providers (HCPs) to territories, including ZIP codes, product groups, and alignment dates.",
         "columns": {
             "PROVIDER_ID": {"description": "Unique identifier for the healthcare provider (e.g., NPI)", "type": "string", "variable_type": "Dimension"},
@@ -314,7 +315,9 @@ db_metadata = [
             "NRX_TOTAL": {"description": "Number of new prescriptions for the drug", "type": "integer", "variable_type": "Fact"},
             "TRX_TOTAL": {"description": "Total number of prescriptions for the drug", "type": "integer", "variable_type": "Fact"},
             "Qty": {"description": "Quantity of the drug prescribed in the transaction", "type": "integer", "variable_type": "Fact"},
-            "PAYER_PLAN ID": {"description": "Identifier for the payer plan associated with the prescription", "type": "string", "variable_type": "Dimension"}
+            "PAYER_PLAN ID": {"description": "Identifier for the payer plan associated with the prescription", "type": "string", "variable_type": "Dimension"},
+"Product Code": {"description": "Unique identifier representing the product code or NDC reference for the prescribed product", "type": "string", "variable_type": "Dimension"}
+
         }
     },
     {
@@ -333,6 +336,7 @@ db_metadata = [
             "PAYER_PLAN_ID": {"description": "Identifier for the payer plan", "type": "string", "variable_type": "Dimension"},
             "PRODUCT_GROUP": {"description": "Name of the product group or medication (e.g., Biktarvy, Dovato)", "type": "string", "variable_type": "Dimension"},
             "SWITCH": {"description": "Indicator for medication switch (e.g., 0 for no switch, -1 for switch to other brands,1 - switch to current brand)", "type": "integer", "variable_type": "Dimension"},
+"Product Code": {"description": "Unique identifier representing the product code or NDC reference for the prescribed product", "type": "string", "variable_type": "Dimension"},
             "PERSISTENCY": {"description": "Persistency indicator (0 or 1, where 1 may indicate persistent use)", "type": "integer", "variable_type": "Dimension"}
         }
     },
@@ -347,10 +351,11 @@ db_metadata = [
             "STATE": {"description": "US state where the provider is located", "type": "string", "variable_type": "Dimension"},
             "REGION": {"description": "Region where the provider practices (e.g., East, Central, West, South)", "type": "string", "variable_type": "Dimension"},
             "PHONE": {"description": "Contact phone number of the provider", "type": "string", "variable_type": "Dimension"},
+"Active Flag": {"description": "Indicates whether the provider or record is active (Y/N)", "type": "string", "variable_type": "Dimension"},
             "EMAIL": {"description": "Email address of the provider", "type": "string", "variable_type": "Dimension"}
         }
     },
-    {
+        {
         "dataset_name": "IC Summary Data",
         "description": "Summarized IC performance at rep level (quarterly); used for payout calculation, rankings, and regional benchmarking.",
         "columns": {
@@ -366,7 +371,12 @@ db_metadata = [
             "Region": {"description": "Region associated with the territory", "type": "string", "variable_type": "Dimension"},
             "%EARNINGS": {"description": "Percentage of IC earnings", "type": "float", "variable_type": "Fact"},
             "REGION_RANK": {"description": "Rank of the employee within the region", "type": "integer", "variable_type": "Fact"},
-            "NATIONAL_RANK": {"description": "Rank of the employee nationally", "type": "integer", "variable_type": "Fact"}
+            "NATIONAL_RANK": {"description": "Rank of the employee nationally", "type": "integer", "variable_type": "Fact"},
+"Eligibility %": {"description": "Percentage of eligibility for the incentive or payout", "type": "string", "variable_type": "Metric"},
+"Target pay": {"description": "Target payment amount set for the provider or employee", "type": "string", "variable_type": "Metric"},
+"$ PayOut": {"description": "Actual payout amount based on performance or eligibility", "type": "string", "variable_type": "Metric"},
+"Level Key": {"description": "Organizational level key associated with the payout (e.g., ABM, RBM, SBD)", "type": "string", "variable_type": "Dimension"}
+
         }
     },
     {
@@ -383,7 +393,9 @@ db_metadata = [
             "NATIONAL_RANK": {"description": "Rank of the employee nationally", "type": "integer", "variable_type": "Fact"},
             "CUTOFF": {"description": "Cutoff for eligibility or payout", "type": "float", "variable_type": "Fact"},
             "ELIGIBILITY": {"description": "Eligibility indicator for IC payout", "type": "string", "variable_type": "Dimension"},
-            "WIN_FLAG": {"description": "Flag indicating top performer (e.g., 1 = Winner)", "type": "integer", "variable_type": "Dimension"}
+            "WIN_FLAG": {"description": "Flag indicating top performer (e.g., 1 = Winner)", "type": "integer", "variable_type": "Dimension"},
+"Target pay": {"description": "Target payment amount set for the provider or employee", "type": "string", "variable_type": "Metric"},
+"$ PayOut": {"description": "Actual payout amount based on performance or eligibility", "type": "string", "variable_type": "Metric"}
         }
     },
     {
@@ -405,7 +417,9 @@ db_metadata = [
             "Sales": {"description": "Total sales associated with the provider", "type": "integer", "variable_type": "Fact"},
             "Trx": {"description": "Total TRx associated with the provider", "type": "integer", "variable_type": "Fact"},
             "Segments": {"description": "Segment classification of the provider", "type": "string", "variable_type": "Dimension"},
-            "Territory_ID": {"description": "Unique identifier for the associated sales territory", "type": "string", "variable_type": "Dimension"}
+            "Territory_ID": {"description": "Unique identifier for the associated sales territory", "type": "string", "variable_type": "Dimension"},
+"Tier": {"description": "Performance or classification tier assigned to the provider or employee", "type": "string", "variable_type": "Dimension"}
+
         }
     },
     {
@@ -426,20 +440,19 @@ db_metadata = [
             "RANK": {"description": "National rank of the employee", "type": "integer", "variable_type": "Fact"}
         }
     },
-   {
-        "dataset_name": "ZIP Sales Level Data",
-        "description": "TRx data aggregated at ZIP level; used for geographic sales analysis, white space opportunity, and ZIP-to-territory planning.",
-        "columns": {
-            "WEEK_ID": {"description": "Unique identifier for the reporting week", "type": "string", "variable_type": "Dimension"},
-            "TERRITORY_ID": {"description": "Identifier for the territory", "type": "string", "variable_type": "Dimension"},
-            "NATION_ID": {"description": "Identifier for the nation", "type": "string", "variable_type": "Dimension"},
-            "ZIP_CODE": {"description": "ZIP code where sales are recorded", "type": "string", "variable_type": "Dimension"},
-            "PROVIDER_ID": {"description": "Unique identifier of the provider", "type": "string", "variable_type": "Dimension"},
-            "NDC_CODE": {"description": "National Drug Code identifying the product", "type": "string", "variable_type": "Dimension"},
-            "PRODUCT_GROUP": {"description": "Grouping/category of the product", "type": "string", "variable_type": "Dimension"},
-            "TRX": {"description": "Total prescriptions dispensed (TRx)", "type": "integer", "variable_type": "Measure"}
-        }
-    },
+    {
+    "dataset_name": "ZIP Sales Level Data",
+    "description": "TRx data aggregated at ZIP level; used for geographic sales analysis, white space opportunity, and ZIP-to-territory planning.",
+    "columns": {
+        "WEEK_ID": {"description": "Unique identifier for the reporting week", "type": "string", "variable_type": "Dimension"},
+        "TERRITORY_ID": {"description": "Identifier for the territory", "type": "string", "variable_type": "Dimension"},
+        "NATION_ID": {"description": "Identifier for the nation", "type": "string", "variable_type": "Dimension"},
+        "ZIP_CODE": {"description": "ZIP code where sales are recorded", "type": "string", "variable_type": "Dimension"},
+        "PROVIDER_ID": {"description": "Unique identifier of the provider", "type": "string", "variable_type": "Dimension"},
+        "NDC_CODE": {"description": "National Drug Code identifying the product", "type": "string", "variable_type": "Dimension"},
+        "PRODUCT_GROUP": {"description": "Grouping/category of the product", "type": "string", "variable_type": "Dimension"},
+        "TRX": {"description": "Total prescriptions dispensed (TRx)", "type": "integer", "variable_type": "Measure"}
+    }},
     {
         "dataset_name": "Plan Data",
         "description": "Dataset containing details of payer plans, PBMs, and insurance models. Includes attributes such as plan, payment, model type, organization, and administrative mapping. Used for analyzing payer mix, insurance structures, and plan-level market dynamics.",
@@ -463,6 +476,41 @@ db_metadata = [
             "admin_name": {"description": "Name of the administrative entity associated with the plan", "type": "string", "variable_type": "Dimension"},
             "admin_type": {"description": "Type/category of the administrative entity (e.g., Third-party administrator)", "type": "string", "variable_type": "Dimension"}
         }
+    },
+    {
+    "dataset_name": "Pay Curve Data",
+    "description": "Defines the pay calculation based on attainment percentages; used for incentive and payout computation.",
+    "columns": {
+        "Start Attainment": {
+            "description": "Starting percentage of attainment for the pay curve segment",
+            "type": "string",
+            "variable_type": "Metric"
+        },
+        "End Attainment": {
+            "description": "Ending percentage of attainment for the pay curve segment",
+            "type": "string",
+            "variable_type": "Metric"
+        },
+        "Start Pay": {
+            "description": "Base pay percentage at the start of the attainment segment",
+            "type": "string",
+            "variable_type": "Metric"
+        },
+        "Slope": {
+            "description": "Incremental factor applied per percentage point of attainment above Start Attainment",
+            "type": "number",
+            "variable_type": "Metric"
+        },
+        "Equation": {
+            "description": "Calculation formula for pay based on attainment: y = Start Pay + (Att% - Start Attainment) * Slope",
+            "type": "string",
+            "variable_type": "Metric",
+            "examples": [
+                "y = 0",
+                "y = 65% + (Att% - 70%) * 1.25",
+                "y = 90% + (Att% - 90%) * 1"
+            ]
+        }
     }
+}
 ]
-
