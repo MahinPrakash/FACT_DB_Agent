@@ -15,8 +15,8 @@ access_key2=b'gAAAAABot9zzWbdFdJiATMHWGrqkJOSNYQ_sYAdaB7Kt9caQl6xHryiS5iEyO7VdYz
 
 cipher = Fernet(key)
 
-laad_df=pd.read_excel("LAAD_Data.xlsx")
-xponent_df=pd.read_excel("Xponent_Data_v2.xlsx")
+laad_df=pd.read_excel("LAAD_Data_v2.xlsx")
+xponent_df=pd.read_excel("Xponent_Data_v3.xlsx")
 weekly_sales_crediting_df=pd.read_excel("weekly_sales_crediting_file_v2.xlsx")
 territory_mapping_df=pd.read_excel("Territory_Mapping.xlsx")
 zip_to_territory_mapping_df=pd.read_excel("Zip_To_Terr.xlsx")
@@ -30,6 +30,23 @@ ic_national_summary_df=pd.read_excel("IC National Summary.xlsx")
 ic_summary_df=pd.read_excel("IC Summary.xlsx")
 national_summary_performance_df=pd.read_excel("National Summary (YTD Performance).xlsx")
 zip_level_sales_df=pd.read_excel("ZIP LEVEL SALES DATA.xlsx")
+
+laad_df=pd.read_excel("LAAD_Data_v2.xlsx")
+xponent_df=pd.read_excel("Xponent_Data_v3.xlsx")
+weekly_sales_crediting_df=pd.read_excel("weekly_sales_crediting_file_v2.xlsx")
+territory_mapping_df=pd.read_excel("Territory_Mapping.xlsx")
+zip_to_territory_mapping_df=pd.read_excel("Zip_To_Terr.xlsx")
+roster_df=pd.read_excel("Roster_Data_v2.xlsx")
+ic_goals_df=pd.read_excel("IC_goals_data_v2.xlsx")
+segmentation_df=pd.read_excel("Segmentation Data v2.xlsx")
+rdtr_df=pd.read_excel("RDTR.xlsx")
+plan_df=pd.read_excel("Plan_Data.xlsx")
+hcp_master_df=pd.read_excel("HCP_Master_v2.xlsx")
+ic_national_summary_df=pd.read_excel("IC National Summary.xlsx")
+ic_summary_df=pd.read_excel("IC Summary v2.xlsx")
+national_summary_performance_df=pd.read_excel("National Summary (YTD Performance) v2.xlsx")
+zip_level_sales_df=pd.read_excel("ZIP LEVEL SALES DATA.xlsx")
+pay_curve_df=pd.read_excel("Pay Curve.xlsx")
 
 repl_variables={}
 
@@ -64,6 +81,7 @@ def python_repl_tool(llm_gen_code):
     repl_variables["ic_summary_df"]=ic_summary_df
     repl_variables["national_summary_performance_df"]=national_summary_performance_df
     repl_variables["zip_level_sales_df"]=zip_level_sales_df
+    repl_variables["pay_curve_df"]=pay_curve_df
     repl_variables["pd"]=pd
     
     try:
@@ -266,6 +284,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
