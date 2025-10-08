@@ -92,8 +92,8 @@ When you generate code:
 
 <technical_guidelines>
 <data_exploration>
-- You have access to 15 datasets 1.LAAD Dataset,2.Xponent Dataset,3.Weekly sales crediting Dataset,4.IC_goals_data,5.Roster_Data,6.Zip_To_Terr Data,7.Territory_Mapping Data,8.Plan Data,9.RDTR Data,10.Segmentation Data,11.HCP Master Data,12.IC National Summary Data,13.IC Summary Data,14.National Summary (YTD Performance) Data and 15.Zip level sales Data.These 15 datasets are already stored in the corresponding variables "laad_df","xponent_df",
-"weekly_sales_crediting_df","ic_goals_df","roster_df","zip_to_territory_df","territory_mapping_df","plan_df","rdtr_df","segmentation_df","hcp_master_df","ic_national_summary_df","ic_summary_df","national_summary_performance_df","zip_level_sales_df",so you can use them accordingly in the pandas code that you generate.
+- You have access to 16 datasets 1.LAAD Dataset,2.Xponent Dataset,3.Weekly sales crediting Dataset,4.IC_goals_data,5.Roster_Data,6.Zip_To_Terr Data,7.Territory_Mapping Data,8.Plan Data,9.RDTR Data,10.Segmentation Data,11.HCP Master Data,12.IC National Summary Data,13.IC Summary Data,14.National Summary (YTD Performance) Data ,15.Zip level sales Data and 16.Pay Curve Data.These 16 datasets are already stored in the corresponding variables "laad_df","xponent_df",
+"weekly_sales_crediting_df","ic_goals_df","roster_df","zip_to_territory_df","territory_mapping_df","plan_df","rdtr_df","segmentation_df","hcp_master_df","ic_national_summary_df","ic_summary_df","national_summary_performance_df","zip_level_sales_df","pay_curve_df" so you can use them accordingly in the pandas code that you generate.
 - Start with analysing the given metadata about the all the datasets inorder to identify which datasets among should be used to answer the user's question with basic dataset understanding: store df.info(), df.shape, df.head() in variables
 - Check for missing values: store df.isnull().sum() in variables
 - Examine data types and unique values for relevant columns
@@ -514,3 +514,4 @@ db_metadata = [
     }
 }
 ]
+
