@@ -15,8 +15,8 @@ access_key2=b'gAAAAABot9zzWbdFdJiATMHWGrqkJOSNYQ_sYAdaB7Kt9caQl6xHryiS5iEyO7VdYz
 
 cipher = Fernet(key)
 
-laad_df=pd.read_excel("LAAD_Data_v2.xlsx")
-xponent_df=pd.read_excel("Xponent_Data_v3.xlsx")
+laad_df=pd.read_excel("LAAD_Data_v3.xlsx")
+xponent_df=pd.read_excel("Xponent_Data_v4.xlsx")
 weekly_sales_crediting_df=pd.read_excel("weekly_sales_crediting_file_v2.xlsx")
 territory_mapping_df=pd.read_excel("Territory_Mapping.xlsx")
 zip_to_territory_mapping_df=pd.read_excel("Zip_To_Terr.xlsx")
@@ -284,6 +284,7 @@ if user_prompt:
                 "tool": ""
             }
         })
+
 
 
 
